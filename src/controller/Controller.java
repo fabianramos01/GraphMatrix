@@ -29,10 +29,10 @@ public class Controller implements ActionListener {
 		default:
 			break;
 		}
-		
 	}
 
 	private void validateRelations() {
-		frameHome.getjTextFields();
+		managerGraph.setRelations(frameHome.getjTextFields());
+		frameHome.repaint();
 	}
 }

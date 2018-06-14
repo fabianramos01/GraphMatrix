@@ -11,5 +11,5 @@ public class ConstantList {
 	public static final String NODE_NUM = "Ingrese la cantidad de nodos";
 	public static final String SIMBOL = "+";
 	
-	public static final int NODE_SIZE = 50;
+	public static final int NODE_SIZE = 100;
 }

@@ -48,14 +48,18 @@ public class PanelMatrix extends JPanel {
 	}
 
 	private JTextField createTextField() {
-		JTextField textField = new JTextField();
+		JTextField textField = new JTextField("0");
 		textField.setFont(ConstantList.AGENCY_FB);
 		textField.setHorizontalAlignment(JTextField.CENTER);
 		textFields.add(textField);
 		return textField;
 	}
 
-	public ArrayList<JTextField> getjTextFields() {
-		return textFields;
+	public ArrayList<Integer> getjTextFields() {
+		ArrayList<Integer> relations = new ArrayList<>();
+		for (JTextField textField : textFields) {
+			relations.add(Integer.parseInt(textField.getText()));
+		}
+		return relations;
 	}
 }

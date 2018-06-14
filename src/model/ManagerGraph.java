@@ -13,8 +13,7 @@ public class ManagerGraph {
 		nodes = new ArrayList<>();
 		for (int i = 0; i < nodeNum; i++) {
 			char letter = (char) letter_ascci++;
-			createNode(String.valueOf(letter), width, height);
-			nodes.add(new Node<>(String.valueOf(letter), 0, 0));
+			nodes.add(createNode(String.valueOf(letter), width, height));
 		}
 	}
 
@@ -23,8 +22,8 @@ public class ManagerGraph {
 		int posY = 0;
 		boolean accept = false;
 		while (!accept) {
-			posX = (int) (Math.random() * width - ConstantList.NODE_SIZE) + ConstantList.NODE_SIZE;
-			posY = (int) (Math.random() * height - ConstantList.NODE_SIZE) + ConstantList.NODE_SIZE;
+			posX = (int) (Math.random() * width - ConstantList.NODE_SIZE);
+			posY = (int) (Math.random() * height - ConstantList.NODE_SIZE);
 			accept = validatePosition(posX, posY);
 		}
 		return new Node<String>(info, posX, posY);
@@ -32,11 +31,38 @@ public class ManagerGraph {
 
 	private boolean validatePosition(int posX, int posY) {
 		for (Node<String> node : nodes) {
-			if (ConstantList.NODE_SIZE == Math.hypot(node.getPositionX() - posX, node.getPositionY() - posY)) {
+			if (ConstantList.NODE_SIZE >= Math.hypot(node.getPositionX() - posX, node.getPositionY() - posY)) {
 				return false;
 			}
 		}
 		return true;
+	}
+	
+	public void setRelations(ArrayList<Integer> relations) {
+		for (int i = 0; i < relations.size(); i++) {
+			setRelation(i, relations.get(i));
+		}
+	}
+	
+	private void setRelation(int index, int weigth) {
+		int num = 0;
+		for (int i = nodes.size(); i < nodes.size() * nodes.size() - 2; i+=nodes.size()) {
+			if (index < i) {
+				nodes.get(num).addRelation(getColumn(index), weigth);
+			}
+			num++;
+		}
+	}
+	
+	private Node<String> getColumn(int index) {
+		int column = 0;
+		for (int i = 0; i <= index; i++) {
+			column++;
+			if (column == nodes.size()) {
+				column = 0;
+			}
+		}
+		return nodes.get(column);
 	}
 
 	public ArrayList<Node<String>> getNodes() {

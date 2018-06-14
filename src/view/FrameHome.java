@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
 
 import controller.ConstantList;
 import model.Node;
@@ -18,6 +17,7 @@ public class FrameHome extends JFrame {
 
 	private ActionListener listener;
 	private PanelMatrix panelMatrix;
+	private PanelGraph panelGraph;
 
 	public FrameHome(ActionListener listener) {
 		this.listener = listener;
@@ -30,12 +30,18 @@ public class FrameHome extends JFrame {
 	}
 	
 	public void init(ArrayList<Node<String>> nodes) {
+		panelGraph = new PanelGraph(nodes);
+		add(panelGraph);
 		panelMatrix = new PanelMatrix(listener, nodes, nodes.size());
 		add(panelMatrix);
 		setVisible(true);
 	}
 	
-	public ArrayList<JTextField> getjTextFields() {
+	public void repaintGraph() {
+		panelGraph.repaint();
+	}
+	
+	public ArrayList<Integer> getjTextFields() {
 		return panelMatrix.getjTextFields();
 	}
 }
